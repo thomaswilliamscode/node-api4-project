@@ -22,7 +22,19 @@ function validateUserId(req, res, next){
 }
 
 // validate user body 
-	// check for username and password are correct
-	// check bio is not empty 
+function validateUserBody( req, res, next ){
+	const { username, password, bio } = req.body
+	if (username && password && bio) {
+		if (username.trim() && password.trim() && bio.trim()) {
+			next();
+		}
+	} else {
+		res
+			.status(404)
+			.json({ message: 'username, password, and bio must be included. ' });
+	}
+	
+}
+	
 
-module.exports = { logger, validateUserId, }
+module.exports = { logger, validateUserId, validateUserBody, }
